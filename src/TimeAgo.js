@@ -2,16 +2,15 @@
  * Created by DanielL on 16.06.2017.
  */
 
-import React, {
-    Component,
-    PropTypes,
-} from 'react';
+import React, { Component } from 'react';
 
 import {
     View,
     Text,
     StyleSheet,
 } from 'react-native';
+
+import PropTypes from 'prop-types';
 
 import ReactMixin from 'react-mixin';
 import TimerMixin from 'react-timer-mixin';
@@ -33,11 +32,11 @@ class TimeAgo extends Component {
 
     static propTypes = {
         locale: PropTypes.string,
-        time: React.PropTypes.oneOfType([
-            React.PropTypes.string,
-            React.PropTypes.number,
-            React.PropTypes.array,
-            React.PropTypes.instanceOf(Date)
+        time: PropTypes.oneOfType([
+            PropTypes.string,
+            PropTypes.number,
+            PropTypes.array,
+            PropTypes.instanceOf(Date)
         ]).isRequired,
         interval: PropTypes.number,
         hideAgo: PropTypes.bool
@@ -229,7 +228,7 @@ class TimeAgo extends Component {
 
         if (moment) {
             return (
-                <Text>{moment.fromNow(hideAgo)}</Text>
+                <Text {...this.props}>{moment.fromNow(hideAgo)}</Text>
         );
         } else {
             return null;

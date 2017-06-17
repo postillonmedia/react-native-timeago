@@ -22,6 +22,7 @@
     "react-timer-mixin": "^0.13.3"
   },
   "devDependencies": {
+    "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-native": "^0.45.1"
   }
