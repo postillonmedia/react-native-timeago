@@ -1,4 +1,8 @@
 /**
+ * Created by DanielL on 22.06.2017.
+ */
+
+/**
  * Created by DanielL on 16.06.2017.
  */
 
@@ -33,26 +37,34 @@ class TimeAgo extends Component {
 
     static propTypes = {
         locale: PropTypes.string,
-        time: PropTypes.oneOfType([
+        date: PropTypes.oneOfType([
             PropTypes.string,
             PropTypes.number,
             PropTypes.array,
             PropTypes.instanceOf(Date)
         ]).isRequired,
-        interval: PropTypes.number,
-        hideAgo: PropTypes.bool
+        format: PropTypes.string,
     };
 
     static defaultProps = {
         locale: 'de',
-        interval: 60000,
-        hideAgo: false,
+        format : '',
     };
 
-    constructor() {
-        super();
+    constructor(props, context) {
+        super(props, context);
 
-        this.state = {};
+        const { locale, format, date } = props;
+
+        const momentInstance = moment(date);
+
+        this.require(locale);
+        momentInstance.locale(locale);
+
+        this.state = {
+            moment: momentInstance,
+            format: format,
+        };
     }
 
     require(locale) {
@@ -174,31 +186,11 @@ class TimeAgo extends Component {
         }
     }
 
-    componentDidMount() {
-        const { interval, time, locale } = this.props;
-
-        const momentInstance = moment(time);
-
-        this.require(locale);
-        momentInstance.locale(locale);
-
-        this.setState({
-            moment: momentInstance,
-        });
-
-        this.setInterval(this.update, interval);
-    }
-
-    componentWillUnmount() {
-        this.clearInterval(this.update);
-    }
-
     componentWillReceiveProps(props) {
-        const newInterval = props.interval;
         const newLocale = props.locale;
-        const newTime = props.time;
+        const newDate = props.date;
 
-        const { locale, time, interval } = this.props;
+        const { locale, date, format } = this.props;
 
         if (newLocale && locale !== newLocale) {
             this.require(locale);
@@ -206,39 +198,26 @@ class TimeAgo extends Component {
             this.state.moment.locale(locale);
         }
 
-        if (newTime && time !== newTime) {
+        if (newDate && date !== newDate) {
             this.setState({
-                moment: moment(newTime),
+                moment: moment(newDate),
             });
         }
-
-        if (newInterval && interval !== newInterval) {
-            this.clearInterval(this.update);
-            this.setInterval(this.update, newInterval);
-        }
-    }
-
-
-    update() {
-        this.forceUpdate();
     }
 
     render() {
-        const { hideAgo} = this.props;
+        const { format} = this.props;
         const { moment } = this.state;
 
         if (moment) {
             return (
-                <Text {...this.props}>{moment.fromNow(hideAgo)}</Text>
-        );
+                <Text {...this.props}>{moment.format(format)}</Text>
+            );
         } else {
             return null;
         }
     }
 }
-
-/* Mixins ============================================================================== */
-ReactMixin.onClass(TimeAgo, TimerMixin);
 
 /* Export Component ==================================================================== */
 export default TimeAgo;
