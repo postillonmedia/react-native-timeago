@@ -3,7 +3,9 @@
  */
 
 import TimeAgo from './src/TimeAgo';
+import LocalizedDate from './src/LocalizedDate';
 
 export {
     TimeAgo,
+    LocalizedDate,
 }
