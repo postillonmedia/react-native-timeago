@@ -2,10 +2,6 @@
  * Created by DanielL on 22.06.2017.
  */
 
-/**
- * Created by DanielL on 16.06.2017.
- */
-
 import React, { Component } from 'react';
 
 import {
