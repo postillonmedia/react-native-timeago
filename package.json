@@ -1,21 +1,25 @@
 {
-  "name": "react-native-timeago",
+  "name": "@postillon/react-native-timeago",
   "version": "1.0.0",
   "description": "TimeAgo component for react-native",
   "main": "index.js",
+  "private": false,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://danielang@bitbucket.org/szynka/react-native-timeago.git"
+    "url": "git+https://github.com/postillonmedia/react-native-timeago.git"
   },
   "keywords": [
     "TimeAgo"
   ],
   "author": "Daniel Lang",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/szynka/react-native-timeago#readme",
+  "bugs": {
+    "url": "https://github.com/postillonmedia/react-native-timeago/issues"
+  },
+  "homepage": "https://github.com/postillonmedia/react-native-timeago#readme",
   "dependencies": {
     "moment": "^2.18.1",
     "react-mixin": "^3.0.5",
