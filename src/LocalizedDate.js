@@ -2,7 +2,7 @@
  * Created by DanielL on 22.06.2017.
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
     View,
@@ -11,9 +11,6 @@ import {
 } from 'react-native';
 
 import PropTypes from 'prop-types';
-
-import ReactMixin from 'react-mixin';
-import TimerMixin from 'react-timer-mixin';
 
 import moment from 'moment';
 
@@ -27,9 +24,9 @@ const styles = StyleSheet.create({
 });
 
 /* Component ==================================================================== */
-class TimeAgo extends Component {
-    static displayName = 'TimeAgo';
-    static componentName = 'TimeAgo';
+class LocalizedDate extends PureComponent {
+    static displayName = 'LocalizedDate';
+    static componentName = 'LocalizedDate';
 
     static propTypes = {
         locale: PropTypes.string,
@@ -192,11 +189,19 @@ class TimeAgo extends Component {
             this.require(locale);
 
             this.state.moment.locale(locale);
+
+            this.forceUpdate();
         }
 
         if (newDate && date !== newDate) {
+            // create a new moment.js instance
+            const newInstance = moment(newDate);
+
+            // apply the current locale of the props to the instance
+            newInstance.locale(newLocale);
+
             this.setState({
-                moment: moment(newDate),
+                moment: newInstance,
             });
         }
     }
@@ -216,4 +221,4 @@ class TimeAgo extends Component {
 }
 
 /* Export Component ==================================================================== */
-export default TimeAgo;
+export default LocalizedDate;

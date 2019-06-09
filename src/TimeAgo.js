@@ -2,7 +2,7 @@
  * Created by DanielL on 16.06.2017.
  */
 
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
     View,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
 });
 
 /* Component ==================================================================== */
-class TimeAgo extends Component {
+class TimeAgo extends PureComponent {
     static displayName = 'TimeAgo';
     static componentName = 'TimeAgo';
 
@@ -204,11 +204,19 @@ class TimeAgo extends Component {
             this.require(locale);
 
             this.state.moment.locale(locale);
+
+            this.update();
         }
 
         if (newTime && time !== newTime) {
+            // create a new moment.js istance
+            const newInstance = moment(newTime);
+
+            // apply the current locale of the props to the instance
+            newInstance.locale(newLocale);
+
             this.setState({
-                moment: moment(newTime),
+                moment: newInstance,
             });
         }
 
@@ -217,7 +225,6 @@ class TimeAgo extends Component {
             this.setInterval(this.update, newInterval);
         }
     }
-
 
     update() {
         this.forceUpdate();

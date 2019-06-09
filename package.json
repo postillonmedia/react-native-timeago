@@ -1,6 +1,6 @@
 {
   "name": "@postillon/react-native-timeago",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TimeAgo component for react-native",
   "main": "index.js",
   "private": false,
